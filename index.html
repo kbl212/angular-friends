@@ -1,25 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="facebookFriendApp">
 <head>
   <title>Angular Friends</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
-
+<body ng-controller="FriendController">
   <h1>The <strong>facebook</strong> Friend Machine</h1>
 
   <div class="friends">
     <form class="form-inline searchForm" role="form">
       <div class="form-group">
 
-        <input class="form-control" placeholder="Search Anything About Your Friends">
+
         <!-- STEP 5: Get rid of the one above when you uncomment the below-->
-          <!--
-        <input class="form-control" placeholder="Search Name">
-        <input class="form-control" placeholder="Search Location">
-          -->
+        
+        <input class="form-control" placeholder="Search Name" ng-model="search.name">
+        <input class="form-control" placeholder="Search Location" ng-model="search.current_location.state" ng-change="fullName">
+        
 
         <select class="input-medium">
           <option>Name</option>
@@ -38,21 +37,22 @@
     </form>
 
     <ul>
-      <li class='friend'>
-        <img class="profile-pic" src='http://placebear.com/50/50.jpg'>
+      <li class='friend' ng-repeat="friend in friends | filter: search">
+          {{friend.name}}
+        <img class="profile-pic" src={{friend.pic_square}}>
 
-        <h3>Cali Fornia</h3>
+        <h3>{{friend.current_location.state}}</h3>
 
         <div class="location">
-          Location: New Port Beach, California, United States
+          Location: {{friend.current_location.city}}, {{friend.current_location.state}}
         </div>
 
         <div class="status">
-          Status: I hate the snow. I wish I was on the beach right now!!! <span class="hashtag">#ihateprovo</span>
+          Status: {{friend.status.message}} <span class="hashtag"></span>
         </div>
 
         <div class="num-friends">
-          Friends: 1,367
+          Friends: 2 {{friend.friend_count}}
         </div>
       </li>
     </ul>
